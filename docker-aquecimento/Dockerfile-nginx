@@ -1,0 +1,4 @@
+FROM nginx
+COPY meu_html /usr/share/nginx/html
+
+# http://localhost:8081/hello.htm

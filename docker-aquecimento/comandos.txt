@@ -1,0 +1,41 @@
+# Após o docker estar rodando para verificar se esta funcionando basta utilizar 
+    docker run hello-word
+
+# Para rodar uma imagem de ubuntu basta utilizar o segunte comando (-ti indica qua ao rodar a imagem o container já vai ser aberto e permitir interação com o terminal):
+    docker run -ti ubuntu:22.04 ubuntu
+      -comandos linux para testar:
+      ls
+      mkdir teste
+      ls
+
+# 'exit' sai do container e 'docker ps' mostra os containers que estão sendo executados
+
+# Muitas vezes é utilizado o Dockerfile para indicar a criação e comandos iniciais do container a ser criado
+# Após criado é utilizado o seguinte comando para criar uma imagem com tag e baseada no docker file o diretorio do terminal:
+    docker build -t meu-ubuntu .
+  # O '-t' indica que a tag é 'meu-ubuntu' e o '.' é o diretorio que o docker vai buscar o Dockerfile
+
+# Com o build ja feito é possivel rodar o container com o comando:
+    docker run -ti meu-ubuntu
+      -ao utilizar o comando 'ls' é possivel ver que a pasta teste2 ja foi criada 
+
+# Para criar uma imagem de um servidor de aplicação web vamos utilizar o nginx e vai ser utilizado o arquivo Dockerfile-nginx como referencia e o seguinte comando:
+    docker build -t meu-nginx -f Dockerfile-nginx .
+
+# Para rodar o container com o terminal 'desatachado' é usado o comando '-d'
+# Para mapear a porta de execução '-p 8081:80'. Porta do host 8081 e porta do container 80 
+    docker run -d -p 8081:80 meu-nginx
+      -'docker ps' para verificar os containers em execução
+
+# Parando o container com 'docker stop ###', é possivel modificar o .htm e para aplicar as modificações refazer os comandos:
+    docker build -t meu-nginx-v2 -f Dockerfile-nginx .
+    docker run -d -p 8081:80 meu-nginx-v2
+
+# Trablhando com COMPOSE para simplificar a execução do container
+# Confira compose.yml, para mais instruções
+
+# Apos as conficurações no compose.yml os seguintes comando são utilizados:
+    docker compose up -d
+    docker ps
+    docker compose down
+    docker ps
